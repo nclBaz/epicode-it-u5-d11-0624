@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import riccardogulin.u5d11.entities.User;
+import riccardogulin.u5d11.exceptions.UnauthorizedException;
 
 import java.util.Date;
 
@@ -24,6 +25,13 @@ public class JWT {
 	}
 
 	public void verifyToken(String accessToken) {
-		// Jwts.parser()
+		try {
+			Jwts.parser()
+					.verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
+					.build().parse(accessToken);
+			// .parse() ci lancerà diversi tipi di eccezioni a seconda che il token sia stato o manipolato, o sia scaduto o sia malformato
+		} catch (Exception ex) {
+			throw new UnauthorizedException("Problemi con il token! Per favore effettua di nuovo il login!");
+		}
 	}
 }

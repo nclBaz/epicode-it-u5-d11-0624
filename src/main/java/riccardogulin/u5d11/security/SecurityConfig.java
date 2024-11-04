@@ -23,7 +23,7 @@ public class SecurityConfig {
 				httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		// Non vogliamo utilizzare le Sessioni (perché JWT NON utilizza le sessioni)
 		httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-				authorizationManagerRequestMatcherRegistry.requestMatchers("/**").permitAll()); // Disabilitamo il 401 che riceviamo di default
+				authorizationManagerRequestMatcherRegistry.requestMatchers("/**").permitAll()); // Disabilitiamo il 401 che riceviamo di default
 		// per OGNI richiesta che facciamo su OGNI endpoint
 
 		// - personalizzare il comportamento di alcune funzionalità preesistenti
